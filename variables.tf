@@ -7,7 +7,7 @@ variable "project_id" {
 variable "region" {
   description = "Region GCP"
   type        = string
-  default     = "europe-central2"  # Warszawa
+  default     = "europe-central2" # Warszawa
 }
 
 variable "cluster_name" {
@@ -25,5 +25,5 @@ variable "worker_count" {
 variable "worker_machine_type" {
   description = "Typ maszyny dla node'ów (odpowiednik vm_size)"
   type        = string
-  default     = "e2-medium"  # 2 vCPU, 4GB RAM - tanie do nauki
+  default     = "e2-medium" # 2 vCPU, 4GB RAM - tanie do nauki
 }

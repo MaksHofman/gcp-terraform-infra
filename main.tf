@@ -8,7 +8,7 @@ terraform {
 
   # Stan Terraforma w GCS (odpowiednik Azure Blob Storage)
   backend "gcs" {
-    bucket = "tfstate-plated-analyzer-495108-v2"  
+    bucket = "tfstate-plated-analyzer-495108-v2"
     prefix = "gke/terraform.tfstate"
   }
 }
@@ -38,8 +38,8 @@ resource "google_container_node_pool" "workers" {
 
   node_config {
     machine_type = var.worker_machine_type
-    disk_size_gb  = 30       
-    disk_type     = "pd-standard" 
+    disk_size_gb = 30
+    disk_type    = "pd-standard"
 
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
