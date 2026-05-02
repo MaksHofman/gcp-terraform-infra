@@ -38,8 +38,9 @@ resource "google_container_node_pool" "workers" {
 
   node_config {
     machine_type = var.worker_machine_type
+    disk_size_gb  = 30       
+    disk_type     = "pd-standard" 
 
-    # Scope potrzebny do logowania / monitoringu
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
