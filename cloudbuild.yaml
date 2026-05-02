@@ -1,0 +1,49 @@
+substitutions:
+  _TF_VERSION: '1.7.0'
+  _PROJECT_ID: 'YOUR_PROJECT_ID'   # <-- zmień
+
+steps:
+
+  # 1. Pobierz Terraform
+  - name: 'alpine'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        wget https://releases.hashicorp.com/terraform/${_TF_VERSION}/terraform_${_TF_VERSION}_linux_amd64.zip
+        unzip terraform_${_TF_VERSION}_linux_amd64.zip
+        mv terraform /workspace/terraform
+
+  # 2. terraform init
+  - name: 'alpine'
+    entrypoint: '/workspace/terraform'
+    args:
+      - init
+      - -backend-config=bucket=tfstate-${_PROJECT_ID}
+      - -backend-config=prefix=gke/terraform.tfstate
+    env:
+      - 'TF_VAR_project_id=${_PROJECT_ID}'
+
+  # 3. terraform plan
+  - name: 'alpine'
+    entrypoint: '/workspace/terraform'
+    args:
+      - plan
+      - -out=tfplan
+    env:
+      - 'TF_VAR_project_id=${_PROJECT_ID}'
+
+  # 4. terraform apply (tylko na branchu main)
+  - name: 'alpine'
+    entrypoint: '/workspace/terraform'
+    args:
+      - apply
+      - -auto-approve
+      - tfplan
+    env:
+      - 'TF_VAR_project_id=${_PROJECT_ID}'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+# Trigger tylko na main (ustawiane w Cloud Build Trigger, nie tutaj)
