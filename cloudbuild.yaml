@@ -6,7 +6,7 @@ steps:
 
   # ── CI: POBIERZ TERRAFORM ──────────────────────────────────
   - name: 'alpine'
-    displayName: 'Pobierz Terraform'
+    id: 'Pobierz Terraform'
     entrypoint: 'sh'
     args:
       - '-c'
@@ -19,7 +19,7 @@ steps:
   # Sprawdza czy kod .tf jest poprawnie sformatowany
   # Failuje jesli ktos nie odpalil "terraform fmt" przed pushem
   - name: 'alpine'
-    displayName: 'CI - terraform fmt check'
+    id: 'CI - terraform fmt check'
     entrypoint: '/workspace/terraform'
     args:
       - fmt
@@ -30,7 +30,7 @@ steps:
   # Sprawdza skladnie i logike kodu bez laczenia sie z GCP
   # Wykrywa: brakujace zmienne, bledne typy, literowki w nazwach zasobow
   - name: 'alpine'
-    displayName: 'CI - terraform validate'
+    id: 'CI - terraform validate'
     entrypoint: 'sh'
     args:
       - '-c'
@@ -42,7 +42,7 @@ steps:
 
   # ── CD: INIT ───────────────────────────────────────────────
   - name: 'alpine'
-    displayName: 'CD - terraform init'
+    id: 'CD - terraform init'
     entrypoint: '/workspace/terraform'
     args:
       - init
@@ -53,7 +53,7 @@ steps:
 
   # ── CD: PLAN ───────────────────────────────────────────────
   - name: 'alpine'
-    displayName: 'CD - terraform plan'
+    id: 'CD - terraform plan'
     entrypoint: '/workspace/terraform'
     args:
       - plan
@@ -63,7 +63,7 @@ steps:
 
   # ── CD: APPLY ──────────────────────────────────────────────
   - name: 'alpine'
-    displayName: 'CD - terraform apply'
+    id: 'CD - terraform apply'
     entrypoint: '/workspace/terraform'
     args:
       - apply
