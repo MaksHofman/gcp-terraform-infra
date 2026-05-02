@@ -8,7 +8,7 @@ terraform {
 
   # Stan Terraforma w GCS (odpowiednik Azure Blob Storage)
   backend "gcs" {
-    bucket = "tfstate-YOUR_PROJECT_ID"   # <-- zmień na nazwę swojego bucketa
+    bucket = "tfstate-plated-analyzer-495108-v2"  
     prefix = "gke/terraform.tfstate"
   }
 }
