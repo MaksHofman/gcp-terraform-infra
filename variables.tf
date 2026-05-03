@@ -19,7 +19,7 @@ variable "cluster_name" {
 variable "worker_count" {
   description = "Liczba worker node'ów"
   type        = number
-  default     = 1
+  default     = 2
 }
 
 variable "worker_machine_type" {
